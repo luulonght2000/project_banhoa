@@ -24,13 +24,22 @@
                     </div><br>
                     <span style="color: red" class="error-message">{{ $errors->first('name') }}</span>
                   </div>
+
                   <div class="form-group">
-                      <div class="input-group">
-                          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                          <input class="form-control" placeholder="Email" name="email" type="text" value="{{ old('email') }}">
-                      </div><br>
-                      <span style="color: red" class="error-message">{{ $errors->first('email') }}</span>
-                  </div>
+                    <div class="mb-6 col-md-12">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                        <input class="form-control" placeholder="Email" name="email" type="text" value="{{ old('email') }}">
+                    </div>
+                    <span style="color: red" class="error-message">{{ $errors->first('email') }}</span> 
+                  </div><br>
+
+                  <div class="form-group">
+                    <div class="mb-6 col-md-12">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                      <input type="number" class="col-sm-10 form-control" id="phone" placeholder="Phone" name="phone" value="{{ old('phone') }}" required>
+                    </div>
+                  </div><br>
+
                   <div class="mb-3 form-password-toggle">
                     <div class="input-group input-group-merge">
                       <input
@@ -59,6 +68,21 @@
                       <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                     </div>
                     <span style="color: red" class="error-message">{{ $errors->first('password') }}</span>
+                  </div>
+
+                  <div class="row">
+                    <div class="mb-3 col-md-6">
+                      <label class="col-form-label" for="DOB">Ngày sinh</label>
+                      <input class="form-control" placeholder="Ngày tháng năm sinh" name="DOB" type="date" value="{{ old('DOB') }}" autofocus>
+                      <span style="color: red" class="error-message">{{ $errors->first('DOB') }}</span>
+                    </div>
+
+                    <div class="mb-3 col-md-6">
+                      <label class=" col-form-label" for="sex">Giới tính</label>
+                      <input type="radio" class="form-check-input" id="sex" placeholder="Giới tính" name="sex" value="1" {{old('sex')?"checked":""}}">Nam
+
+                      <input type="radio" class="form-check-input" id="sex" placeholder="Giới tính" name="sex" value="0" {{old('sex')?"":"checked"}}">NỮ
+                    </div>
                   </div>
   
                   <button type="submit" class="btn btn-primary me-2">Save</button>

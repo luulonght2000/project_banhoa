@@ -17,6 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone')->nullable(true);
+            $table->boolean('sex')->default(true);
+            $table->dateTime('DOB')->default('2000-01-01 0:0:0');
+            $table->string('address', 100)->nullable(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean('is_admin')->default(false);
             $table->string('password');

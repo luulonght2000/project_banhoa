@@ -56,12 +56,38 @@
                 <div class="row">
                   <div class="mb-6 col-md-12">
                     <label class="col-sm-2 col-form-label" for="name">Name</label>
-                    <input type="text" class="col-sm-10 form-control" id="name" placeholder="Tên" name="name" value="{{count($errors)?old('name'):$user->name}}">
-                    <span class="error-message" style="color: red">{{ $errors->first('name') }}</span>
+                    <input type="text" class="col-sm-10 form-control" id="name" placeholder="Tên" name="name" value="{{count($errors)?old('name'):$user->name}}" required>
+                  </div>
+
+                  <div class="row">
+                  <div class="mb-3 col-md-6">
+                    <label class="col-sm-2 col-form-label" for="email">Email</label>
+                    <input type="email" class="col-sm-10 form-control" id="email" placeholder="Email" name="email" value="{{count($errors)?old('email'):$user->email}}" required>
                   </div>
                   <div class="mb-3 col-md-6">
-                    <label class="col-sm-2 col-form-label" for="name">Email</label>
-                    <input type="text" class="col-sm-10 form-control" id="email" placeholder="Email" name="email" value="{{count($errors)?old('email'):$user->email}}">
+                    <label class="col-sm-2 col-form-label" for="email">Phone</label>
+                    <input type="number" class="col-sm-10 form-control" id="phone" placeholder="Phone" name="phone" value="{{count($errors)?old('phone'):$user->phone}}" required>
+                  </div>
+                </div>
+
+                  <div class="row">
+                    <div class="mb-3 col-md-6">
+                      <label class="col-sm-2 col-form-label" for="DOB">Ngày sinh</label>
+                      <input type="date" class="col-sm-10 form-control" id="DOB" placeholder="Ngày sinh" name="DOB" value="{{count($errors)?old('DOB'):(new DateTime($user->DOB))->format('Y-m-d')}}">
+                    </div>
+
+                    <div class="mb-3 col-md-6">
+                      <label class="col-sm-2 col-form-label" for="sex">Giới tính:</label>
+                      <label class="col-sm-2 col-form-label" for="sex">{{$user->sex?"Nam":"Nữ"}}</label>
+                      <input type="radio" class="form-check-inline" id="sex" placeholder="Giới tính" name="sex" value="1" {{old('sex')?"checked":""}}">Nam
+  
+                      <input style="margin-left: 2000" type="radio" class="form-check-inline" id="sex" placeholder="Giới tính" name="sex" value="0" {{old('sex')?"":"checked"}}">Nữ
+                    </div>
+                  </div>
+
+                  <div class="mb-6 col-md-12">
+                    <label class="col-sm-2 col-form-label" for="name">Địa chỉ</label>
+                    <input type="text" class="col-sm-10 form-control" id="address" placeholder="Địa chỉ" name="address" value="{{count($errors)?old('address'):$user->address}}" required>
                   </div>
                 </div>
                 <div class="mt-2">

@@ -75,7 +75,10 @@
                           <tr>
                             <th>Ảnh</th>
                             <th>FullName</th>
+                            <th>Giới tính</th>
                             <th>Email</th>
+                            <th>Phone</th>
+                            <th>Địa chỉ</th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -90,7 +93,10 @@
                             @endif
                           </td>
                           <td>{{$user->name}}</td>
+                          <td>{{$user->sex?"Nam":"Nữ"}}</td>
                           <td>{{$user->email}}</td>
+                          <td>{{$user->phone}}</td>
+                          <td>{{$user->address}}</td>
                           <td>
                             <form action="{{route('user.destroy', ['user'=>$user->id])}}" method="POST" onsubmit="return(confirm('bạn có thực sự muốn xóa?'))">
                               @method('DELETE')
@@ -110,7 +116,10 @@
                           <tr>
                             <th>Ảnh</th>
                             <th>FullName</th>
+                            <th>Giới tính</th>
                             <th>Email</th>
+                            <th>Phone</th>
+                            <th>Địa chỉ</th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -125,7 +134,10 @@
                             @endif
                           </td>
                           <td>{{$user_admin->name}}</td>
+                          <td>{{$user_admin->sex?"Nam":"Nữ"}}</td>
                           <td>{{$user_admin->email}}</td>
+                          <td>{{$user_admin->phone}}</td>
+                          <td>{{$user_admin->address}}</td>
                           <td>
                             <form action="{{route('user.destroy', ['user'=>$user_admin->id])}}" method="POST" onsubmit="return(confirm('bạn có thực sự muốn xóa?'))">
                               @method('DELETE')
