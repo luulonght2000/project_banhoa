@@ -51,6 +51,7 @@ class UserController extends Controller
             'name' => 'required|max:50',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'phone' => 'required|min:10|numeric',
         ];
 
         $vaildator = Validator::make($request->all(), $rules);
@@ -63,6 +64,10 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
+            $user->DOB = $request->DOB;
+            $user->sex = $request->sex;
+            $user->phone = $request->phone;
+            $user->address = $request->address;
             $user->is_admin = 1;
 
             $user->save();

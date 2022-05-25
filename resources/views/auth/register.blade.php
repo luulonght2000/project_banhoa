@@ -114,7 +114,7 @@
 <body>
     <div class="container">
         <div class="d-flex justify-content-center h-100">
-            <div class="card">
+            <div class="card" style="height: auto">
                 <div class="card-header">
                     <h3>Register</h3>
                     <div class="d-flex justify-content-end social_icon">
@@ -183,9 +183,12 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
+                                <input type="submit" value="Register" class="btn login_btn">
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-center links">
+                                Have an account?<a href="{{url('/login')}}">Log In</a>
                             </div>
                         </div>
                     </form>

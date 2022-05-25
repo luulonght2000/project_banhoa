@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
 
-//CLIENT
+//==================================CLIENT==================================================
 Route::prefix('/')->group(function () {
     Route::get('logout', [App\Http\Controllers\LoginController::class, 'logout']);
     Route::resource('/', \App\Http\Controllers\HomeController::class);
@@ -32,15 +32,21 @@ Route::prefix('/')->group(function () {
 });
 
 
-//ADMIN
-
+//================================LOGIN======================================================
 Route::prefix('/')->group(function () {
     Route::get('login', [\App\Http\Controllers\LoginController::class, 'login'])
         ->name('admin.auth.login');
-
     Route::post('login', [\App\Http\Controllers\LoginController::class, 'checkLogin'])
         ->name('admin.auth.check-login');
+
+    Route::get('/quen-mat-khau', [\App\Http\Controllers\MailController::class, 'forgotPass']);
+    Route::get('/update-new-pass', [\App\Http\Controllers\MailController::class, 'updatePass']);
+    Route::post('/recover-pass', [\App\Http\Controllers\MailController::class, 'recoverPass']);
+    Route::post('/update-new-pass', [\App\Http\Controllers\MailController::class, 'update_new_pass']);
 });
+
+
+//================================ADMIN======================================================
 
 Route::prefix('admin')->middleware('admin.login')->group(function () {
     Route::get('logout', [App\Http\Controllers\LoginController::class, 'logout']);
@@ -48,14 +54,22 @@ Route::prefix('admin')->middleware('admin.login')->group(function () {
     Route::get('/home', 'App\Http\Controllers\AdminController@index')->name('admin.index');
     Route::resource('user', \App\Http\Controllers\UserController::class);
     Route::resource('accountadmin', \App\Http\Controllers\AdminController::class);
-
     Route::resource('category', \App\Http\Controllers\CategoryController::class);
     Route::resource('product', \App\Http\Controllers\ProductController::class);
     // ->middleware('auth.admin.products');
+    Route::resource('style', \App\Http\Controllers\StyleController::class);
     Route::resource('oder', \App\Http\Controllers\OderController::class);
 });
 
 
+
+
+
+
+
+
+
+//=======================================TEST================================================
 
 Route::get('/templateadmin', function () {
     return view('admin.app');

@@ -223,6 +223,11 @@
                   <div data-i18n="Category">Category</div>
                 </a>
               </li>
+              <li class="menu-item">
+                <a href="{{url('admin/style')}}" class="menu-link">
+                  <div data-i18n="Style">Style</div>
+                </a>
+              </li>
             </ul>
           </li>
           <!-- Components -->

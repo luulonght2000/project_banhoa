@@ -116,55 +116,40 @@
         <div class="d-flex justify-content-center h-100">
             <div class="card" style="height: auto">
                 <div class="card-header">
-                    <h3>Sign In</h3>
-                    <div class="d-flex justify-content-end social_icon">
-                        <span><i class="fab fa-facebook-square"></i></span>
-                        <span><i class="fab fa-google-plus-square"></i></span>
-                        <span><i class="fab fa-twitter-square"></i></span>
-                    </div>
+                    <h3>Quên Mật Khẩu</h3>
+                   
                     @if(session('error'))
                     <div class="alert alert-danger">
                         {{session('error')}}
                     </div>
                     @endif
-                    @if(session('success'))
+                    @if(session('message'))
                     <div class="col-sm-12">
                       <div class="alert fade alert-simple alert-success font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show">
-                        <p>{{session('success')}}</p>
+                        <p>{{session('message')}}</p>
                       </div>
                     </div>
+                    
                     @endif
                 </div>
                 <div class="card-body">
-                    <form action="{{route('admin.auth.check-login')}}" method="post">
+                    <form action="{{url('recover-pass')}}" method="post">
                         @csrf
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="email" name="email">
+                            <input type="email" class="form-control" placeholder="email" name="email">
 
                         </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            </div>
-                            <input type="password" class="form-control" placeholder="password" name="password">
-                        </div>
-                        <div class="row align-items-center remember">
-                            <input type="checkbox" name="remember">Remember Me
-                        </div>
                         <div class="form-group">
-                            <input type="submit" value="Login" class="btn float-right login_btn">
+                            <input type="submit" value="Gửi mail  " class="btn float-right login_btn">
                         </div>
                     </form>
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-center links">
-                        Don't have an account?<a href="{{url('/register')}}">Sign Up</a>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <a href="{{url('quen-mat-khau')}}">Forgot your password?</a>
+                        Don't have an account?<a href="{{url('/login')}}">LogIn</a>
                     </div>
                 </div>
             </div>

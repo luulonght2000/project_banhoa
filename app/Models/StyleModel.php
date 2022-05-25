@@ -11,6 +11,6 @@ class StyleModel extends Model
 
     public function product()
     {
-        return $this->hasMany('App\Models\ProductModel');
+        return $this->hasMany(\App\Models\ProductModel::class);
     }
 }

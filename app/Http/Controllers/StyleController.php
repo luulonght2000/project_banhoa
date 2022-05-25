@@ -2,27 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CategoryModel;
-use App\Models\ProductModel;
-use App\Models\User;
+use App\Models\StyleModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Session;
+use PhpParser\Node\Stmt\Return_;
 
-class AdminController extends Controller
+class StyleController extends Controller
 {
-
-    // public function __construct()
-    // {
-    //     //Sử dụng session để check login
-
-    // }
-
-
-
-
-
     /**
      * Display a listing of the resource.
      *
@@ -30,9 +16,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $products = ProductModel::orderBy('id', 'DESC')->paginate(12);
-        $categories = CategoryModel::orderBy('id', 'DESC')->get();
-        return view('admin.app', ['products' => $products, 'categories' => $categories]);
+        $styles = StyleModel::orderBy('id', 'DESC')->paginate(5);
+        return view('admin.style.index', ['styles' => $styles]);
     }
 
     /**
@@ -42,7 +27,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.style.new');
     }
 
     /**
@@ -53,7 +38,23 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name' => "required|max:50|unique:style_models"
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+            return redirect()->route('style.create')->withErrors($validator)->withInput();
+        else {
+            $style = new StyleModel();
+            $style->name = $request->name;
+            $style->description = $request->description;
+
+            $style->save();
+
+            return redirect()->route('style.index');
+        }
     }
 
     /**
@@ -75,8 +76,7 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return view('admin.account.index', ['user' => $user]);
+        //
     }
 
     /**
@@ -88,22 +88,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->DOB = $request->DOB;
-        $user->sex = $request->sex;
-        $user->address = $request->address;
-
-        $user->save();
-
-        $file = $request->avatar;
-        if ($file)
-            $file->move("./uploads_admin/", "$id.jpg");
-
-        return redirect()->route('accountadmin.index');
+        //
     }
 
     /**
