@@ -163,9 +163,11 @@
             </a>
             <ul class="menu-sub">
               <li class="menu-item">
+                @if (Auth::check())
                 <a href="{{route('accountadmin.edit', ['accountadmin'=>Auth::user()->id])}}" class="menu-link">
                   <div data-i18n="Account">Account</div>
                 </a>
+                @endif
               </li>
               <li class="menu-item">
                 <a href="pages-account-settings-notifications.html" class="menu-link">
@@ -494,16 +496,9 @@
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                   <div class="avatar avatar-online">
                     @if(Auth::check())
-                    <img class="w-px-40 h-auto rounded-circle" src="/uploads_admin/{{Auth::user()->id}}.jpg"alt="">
+                    <img class="auto rounded-circle" src="/uploads_admin/{{Auth::user()->id}}.jpg"alt="">
                     @else
-                    <img class="w-px-40 h-auto rounded-circle" src={{"/uploads_admin/no_photo.jpg"}} alt="">
-
-
-                    @if(file_exists(public_path("/uploads_admin/{$user->id}.jpg")))
-                    <img width="100" height="100" src={{"/uploads_admin/{$user->id}.jpg"}} alt="user-avatar" class="d-block rounded">
-                    @else
-                    <img width="100" height="100" src={{"/uploads_admin/no_photo.png"}} alt="user-avatar" class="d-block rounded">
-                    @endif
+                    <img class="auto rounded-circle" src={{"/uploads_admin/no_photo.jpg"}} alt="">
                   @endif
                   </div>
                 </a>
@@ -514,9 +509,9 @@
                         <div class="flex-shrink-0 me-3">
                           <div class="avatar avatar-online">
                             @if(Auth::check())
-                              <img class="w-px-40 h-auto rounded-circle" src="/uploads_admin/{{Auth::user()->id}}.jpg"alt="">
+                              <img class="auto rounded-circle" src="/uploads_admin/{{Auth::user()->id}}.jpg"alt="">
                               @else
-                              <img class="w-px-40 h-auto rounded-circle" src={{"/uploads_admin/no_photo.jpg"}} alt="">
+                              <img class="auto rounded-circle" src={{"/uploads_admin/no_photo.jpg"}} alt="">
                             @endif
                           </div>
                         </div>

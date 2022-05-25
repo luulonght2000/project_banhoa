@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\StyleModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use NunoMaduro\Collision\Adapters\Phpunit\Style;
 use PhpParser\Node\Stmt\Return_;
 
 class StyleController extends Controller
@@ -76,7 +77,8 @@ class StyleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $style = StyleModel::findorFail($id);
+        return view('admin/style.edit', ['style' => $style]);
     }
 
     /**
@@ -88,7 +90,23 @@ class StyleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'name' => 'required|max:30'
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+            return redirect()->route('style.edit', ['style' => $id])->withErrors($validator)->withInput();
+        else {
+            $style = StyleModel::find($id);
+            $style->name = $request->name;
+            $style->description = $request->description;
+
+            $style->save();
+
+            return redirect()->route('style.index');
+        }
     }
 
     /**
@@ -99,6 +117,9 @@ class StyleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $style = StyleModel::findOrFail($id);
+        $style->delete();
+
+        return redirect()->route('style.index');
     }
 }

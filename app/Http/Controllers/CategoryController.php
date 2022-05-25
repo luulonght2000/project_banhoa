@@ -48,6 +48,7 @@ class CategoryController extends Controller
     {
         $rules = [
             'name' => "required|max:100|unique:category_models",
+            'feature' => "required",
             'avatar' => 'mimes:jpeg, bmp, png, gif, jpg'
         ];
 
@@ -100,7 +101,8 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'name' => 'required|max:30'
+            'name' => 'required|max:30',
+            'feature' => "required",
         ];
 
         $validator = Validator::make($request->all(), $rules);

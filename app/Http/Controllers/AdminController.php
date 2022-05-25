@@ -88,22 +88,36 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
+        $rules = [
+            'name' => 'required|max:50',
+            'sex' => 'required',
+            'email' => 'required|string|email|max:255',
+            'avatar' => 'mimes:jpeg, bmp, png, gif, jpg'
+        ];
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->DOB = $request->DOB;
-        $user->sex = $request->sex;
-        $user->address = $request->address;
+        $validator = Validator::make($request->all(), $rules);
 
-        $user->save();
+        if ($validator->fails())
+            return redirect()->route('accountadmin.edit', ['accountadmin' => $id])->withErrors($validator)->withInput();
+        else {
 
-        $file = $request->avatar;
-        if ($file)
-            $file->move("./uploads_admin/", "$id.jpg");
+            $user = User::findOrFail($id);
 
-        return redirect()->route('accountadmin.index');
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->DOB = $request->DOB;
+            $user->sex = $request->sex;
+            $user->address = $request->address;
+
+            $user->save();
+
+            $file = $request->avatar;
+            if ($file)
+                $file->move("./uploads_admin/", "$id.jpg");
+
+            return redirect()->route('accountadmin.index');
+        }
     }
 
     /**

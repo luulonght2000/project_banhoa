@@ -29,6 +29,7 @@ Route::prefix('/')->group(function () {
     Route::get('/productDetail/{id}', 'App\Http\Controllers\HomeController@productDetail');
     Route::get('/blog', 'App\Http\Controllers\HomeController@blog');
     Route::get('/contact', 'App\Http\Controllers\HomeController@contact')->name('contact');
+    Route::resource('profile', App\Http\Controllers\ClientController::class)->middleware('checkProfile');
 });
 
 
@@ -43,6 +44,13 @@ Route::prefix('/')->group(function () {
     Route::get('/update-new-pass', [\App\Http\Controllers\MailController::class, 'updatePass']);
     Route::post('/recover-pass', [\App\Http\Controllers\MailController::class, 'recoverPass']);
     Route::post('/update-new-pass', [\App\Http\Controllers\MailController::class, 'update_new_pass']);
+});
+
+//---------------------------Login google-----------------------------
+Route::controller(App\Http\Controllers\SocialController::class)->group(function () {
+    Route::get('google', 'redirectToGoogle')->name('auth.google');
+    Route::get('google/callback', 'handleGoogleCallback');
+    Route::get('google/logout', 'logout');
 });
 
 
@@ -85,4 +93,14 @@ Route::get('/product', function () {
 
 Route::get('/product/new', function () {
     return view('admin.product.new');
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 });

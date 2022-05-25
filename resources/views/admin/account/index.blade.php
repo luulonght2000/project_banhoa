@@ -62,7 +62,8 @@
                   <div class="row">
                   <div class="mb-3 col-md-6">
                     <label class="col-sm-2 col-form-label" for="email">Email</label>
-                    <input type="email" class="col-sm-10 form-control" id="email" placeholder="Email" name="email" value="{{count($errors)?old('email'):$user->email}}" required>
+                    <input type="email" class="col-sm-10 form-control" id="email" placeholder="Email" name="email" value="{{count($errors)?old('email'):$user->email}}">
+                    <span class="error-message" style="color: red">{{ $errors->first('email') }}</span>
                   </div>
                   <div class="mb-3 col-md-6">
                     <label class="col-sm-2 col-form-label" for="email">Phone</label>
@@ -82,6 +83,8 @@
                       <input type="radio" class="form-check-inline" id="sex" placeholder="Giới tính" name="sex" value="1" {{old('sex')?"checked":""}}">Nam
   
                       <input style="margin-left: 2000" type="radio" class="form-check-inline" id="sex" placeholder="Giới tính" name="sex" value="0" {{old('sex')?"":"checked"}}">Nữ
+                      <br>
+                      <span class="error-message" style="color: red">{{ $errors->first('sex') }}</span>
                     </div>
                   </div>
 
@@ -127,6 +130,7 @@
       </div>
     </div>
     <!-- / Content -->
+    
 @endsection
 
     

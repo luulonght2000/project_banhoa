@@ -19,7 +19,7 @@
                 @method('PUT')
                 <div class="row">
                   <div class="mb-3 col-md-6">
-                    <label class="col-sm-2 col-form-label" for="name">Tên loại hoa</label>
+                    <label class="col-sm-3 col-form-label" for="name">Tên loại hoa</label>
                     <input type="text" class="col-sm-10 form-control" id="name" placeholder="Tên loại hoa" name="name" value="{{count($errors)?old('name'):$category->name}}">
                     <span class="error-message" style="color: red">{{ $errors->first('name') }}</span>
                   </div>
@@ -28,6 +28,8 @@
                     <input type="radio" class="form-check-inline" id="feature" placeholder="Đặc biệt" name="feature" value="1" {{(count($errors)?old('feature'):$category->feature)?"checked":""}}">Có
 
                     <input style="margin-left: 2000" type="radio" class="form-check-inline" id="feature" placeholder="Đặc biệt" name="feature" value="0" {{(count($errors)?old('feature'):$category->feature)?"":"checked"}}">Không
+
+                    <br><span class="error-message" style="color: red">{{ $errors->first('feature') }}</span>
                   </div>
                   
                   <div class="mb-6 col-md-12">

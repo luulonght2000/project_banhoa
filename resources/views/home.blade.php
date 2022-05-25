@@ -25,7 +25,7 @@
                 <div class="product__item">
                     <div class="product__item__pic set-bg">
                         @if(file_exists(public_path("./uploads/{$product->id}.jpg")))
-                        <img width="100%" height="350px" src={{"/uploads/{$product->id}.jpg"}} alt="">
+                        <img width="100%" height="350px" src={{"/uploads/$product->id.jpg"}} alt="">
                         @else
                         <img width="100%" height="350px" src={{"/uploads/no_photo.png"}} alt="">
                         @endif
@@ -36,7 +36,7 @@
                         </ul>
                     </div>
                     <div class="featured__item__text">
-                        <h6><a href="/productDetail/{{$product->id}}">{{$product->name}}</a></h6>
+                        <h6 style="text-transform: capitalize"><a href="/productDetail/{{$product->id}}">{{$product->name}}</a></h6>
                         <h5>{{$product->price}}
                             <p style="display: inline; color: red; text-decoration: line-through">{{$product->old_price}}</p>
                         </h5>

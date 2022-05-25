@@ -1,6 +1,17 @@
 
 @extends('admin.master')
 @section('content')
+
+<style>
+  .my-custom-scrollbar {
+position: relative;
+height: 500px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
+</style>
   <!-- Content wrapper -->
   <div class="content-wrapper">
     <!-- Content -->
@@ -51,48 +62,50 @@
             <div class="card-body">
                 <div class="row">
                   <div class="mb-6 col-md-12">
-                    <table class="table table-hover table-dark" border="1">
-                      <thead>
-                        <tr style="text-align: center">
-                          <th>Ảnh</th>
-                          <th>Tên hoa</th>
-                          <th>Loại hoa</th>
-                          <th>Kiểu hoa</th>
-                          <th>Giá</th>
-                          <th>Giá cũ</th>
-                          <th>Đã bán</th>
-                          <th>Thao tác</th>
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                      <table class="table table-hover table-dark" border="1" >
+                        <thead>
+                          <tr style="text-align: center">
+                            <th>Ảnh</th>
+                            <th>Tên hoa</th>
+                            <th>Loại hoa</th>
+                            <th>Kiểu hoa</th>
+                            <th>Giá</th>
+                            <th>Giá cũ</th>
+                            <th>Đã bán</th>
+                            <th>Thao tác</th>
+                          </tr>
+                        </thead>
+                  
+                        @foreach($products as $product)
+                        <tr>
+                          <td>
+                            @if(file_exists(public_path("./uploads/{$product->id}.jpg")))
+                            <img width="75" height="100" src={{"/uploads/{$product->id}.jpg"}} alt="">
+                            @else
+                            <img width="75" height="100" src={{"/uploads/no_photo.png"}} alt="">
+                            @endif
+                          </td>
+                          <td>{{$product->name}}</td>
+                          <td>{{$product->category->name ?? 'None'}}</td>
+                          <td>{{$product->style->name}}</td>
+                          <td>{{$product->price}}</td>
+                          <td>{{$product->old_price}}</td>
+                          <td>{{$product->sold}}</td>
+                  
+                          <td>
+                            <a href="{{route('product.edit', ['product'=>$product->id])}}"><button type="button" class="btn btn-success">Sửa</button></a>
+                  
+                            <form action="{{route('product.destroy', ['product'=>$product->id])}}" method="POST" onsubmit="return(confirm('bạn có thực sự muốn xóa?'))">
+                              @method('DELETE')
+                              @csrf
+                              <button type="submit" class="btn btn-danger">Xóa</button>
+                            </form>
+                          </td>
                         </tr>
-                      </thead>
-                
-                      @foreach($products as $product)
-                      <tr>
-                        <td>
-                          @if(file_exists(public_path("./uploads/{$product->id}.jpg")))
-                          <img width="75" height="100" src={{"/uploads/{$product->id}.jpg"}} alt="">
-                          @else
-                          <img width="75" height="100" src={{"/uploads/no_photo.png"}} alt="">
-                          @endif
-                        </td>
-                        <td>{{$product->name}}</td>
-                        <td>{{$product->category->name ?? 'None'}}</td>
-                        <td>{{$product->style->name}}</td>
-                        <td>{{$product->price}}</td>
-                        <td>{{$product->old_price}}</td>
-                        <td>{{$product->sold}}</td>
-                
-                        <td>
-                          <a href="{{route('product.edit', ['product'=>$product->id])}}"><button type="button" class="btn btn-success">Sửa</button></a>
-                
-                          <form action="{{route('product.destroy', ['product'=>$product->id])}}" method="POST" onsubmit="return(confirm('bạn có thực sự muốn xóa?'))">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-danger">Xóa</button>
-                          </form>
-                        </td>
-                      </tr>
-                      @endforeach
-                    </table><br>
+                        @endforeach
+                      </table>
+                    </div><br>
                     <div class="pagination justify-content-center">
                       {{$products->onEachSide(10)->links()}}
                     </div>

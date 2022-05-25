@@ -60,7 +60,8 @@ class ProductController extends Controller
             'name' => 'required|max:50',
             'category_id' => 'required',
             'style_id' => 'required',
-            'price' => 'required',
+            'price' => 'required|max:30',
+            'old_price' => 'required|max:30',
             'avatar' => 'mimes:jpeg, bmp, png, gif, jpg'
         ];
 
@@ -134,14 +135,15 @@ class ProductController extends Controller
             'name' => 'required|max:50',
             'category_id' => 'required',
             'style_id' => 'required',
-            'price' => 'required',
+            'price' => 'required|max:30',
+            'old_price' => 'required|max:30',
             'avatar' => 'mimes:jpeg, bmp, png, gif, jpg'
         ];
 
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails())
-            return redirect()->route('product.edit')->withErrors($validator)->withInput();
+            return redirect()->route('product.edit', ['product' => $id])->withErrors($validator)->withInput();
         else {
             $product = ProductModel::findOrFail($id);
 

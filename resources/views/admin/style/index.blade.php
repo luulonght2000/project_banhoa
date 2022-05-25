@@ -29,7 +29,7 @@
                     <table class="table table-hover table-dark" border="1">
                       <thead>
                         <tr >
-                          <th>Kiểu hoa</th>
+                          <th style="width: 25%">Kiểu hoa</th>
                           <th>Description</th>
                           <th>Action</th>
                         </tr>
